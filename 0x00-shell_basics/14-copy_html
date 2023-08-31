@@ -1,20 +1,2 @@
 #!/bin/bash
-
-parent_dir="$(dirname "$(pwd)")"
-
-for file in *.html; do
-    if [ -f "$parent_dir/$file" ]; then
-        current_mtime=$(stat -c %Y "$file")
-        parent_mtime=$(stat -c %Y "$parent_dir/$file")
-
-        if [ "$current_mtime" -gt "$parent_mtime" ]; then
-            echo "Copying $file to $parent_dir"
-            cp "$file" "$parent_dir"
-        else
-            echo "$file already exists in $parent_dir and is newer."
-        fi
-    else
-        echo "Copying $file to $parent_dir"
-        cp "$file" "$parent_dir"
-    fi
-done
+cp -un *.html ../
