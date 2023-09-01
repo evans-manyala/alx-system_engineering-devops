@@ -1,3 +1,2 @@
 #!/bin/bash
-mkdir -p /tmp/u
-mv [[:upper:]]* /tmp/u 2>/dev/null
+mv [[:upper:]]* /tmp/u
