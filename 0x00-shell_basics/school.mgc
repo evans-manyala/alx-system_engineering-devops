@@ -1,1 +1,2 @@
 0   string  SCHOOL  School data file≈
+echo "$file: $(file -C "$file")"
