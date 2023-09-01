@@ -1,2 +1,2 @@
-0   string  SCHOOL  School data file≈
-sudo echo "$file: $(file -C "$file")"
+0 string SCHOOK School  data
+!:mime School
