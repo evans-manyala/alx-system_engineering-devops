@@ -5,15 +5,15 @@
 # Displays Buzz when the number is a multiple of 5
 #Otherwise, displays the number, In a list format
 count=1
-until [ $count -ge 100 ]; do
-    if ($count/3)=0 and ($count/5)=0; then
+until [[ $count -gt 100 ]]; do
+    if ((count % 15 == 0)); then
         echo "FizzBuzz"
-    elif ($count/3)=0; then
+    elif ((count % 3 == 0)); then
         echo "Fizz"
-    elif ($count / 5)=0; then
+    elif ((count % 5 == 0)); then
         echo "Buzz"
     else
-        echo $count
+        echo "$count"
     fi
 count=$((count + 1))
 done
