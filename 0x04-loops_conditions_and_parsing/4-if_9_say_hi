@@ -2,6 +2,10 @@
 # Using a while loop to display "Best School" 10 times. On the 9th time, it displays "Hi!"
 count=1
 while [ $count -le 10 ]; do
-  echo "Best School"
+  if [ $count -eq 9 ]; then  # Use brackets for the if condition
+    echo "Hi"
+  else
+    echo "Best School"
+  fi
   count=$((count + 1))  # Increment count within the loop
 done
