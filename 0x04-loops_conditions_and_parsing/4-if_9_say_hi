@@ -2,7 +2,9 @@
 # Using a while loop to display "Best School" 10 times. On the 9th time, it displays "Hi!"
 count=1
 while [ $count -le 10 ]; do
-  if [ $count -eq 9 ]; then  # Use brackets for the if condition
+  if [ $count -eq 9 ];  # Use brackets for the if condition
+  then
+    echo "Best School"
     echo "Hi"
   else
     echo "Best School"
