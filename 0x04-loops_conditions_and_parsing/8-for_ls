@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Lists all files in the current directory using for loop
+for filename in *; do
+    #Check if the file is not hidden
+    if [[ ! $filename =~ ^. ]]; then
+        #Extracting the part after first dash (if any) is present
+        part_after_dash="${filename#*-}"
+        # Print filename in list format
+        echo "- $part_after_dash"
+    fi
+done
