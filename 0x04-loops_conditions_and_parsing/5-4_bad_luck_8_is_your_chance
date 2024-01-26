@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Using a while loop to display the following:
+# displays bad luck for the 4th loop iteration
+# displays good luck for the 8th loop iteration
+# displays Best School for the other iterations
+count=1
+while [ $count -le 10 ]; do
+  if [ $count -eq 4 ]; then # Print Bad Luck on 4th loop
+    echo "bad luck"
+  elif [ $count -eq 8 ];then
+    echo "good luck"
+  else
+    echo "Best School"
+  fi
+  count=$((count + 1))  # Increment count within the loop
+done
