@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Bash script that displays the content of the file /etc/passwd.
+# The script displays only: username, user id, Home directory path for the user
+filepath="$/etc/passwd"
+if [[ -f "$filepath"]]; then
+    while IFS = read -f line; do
+        if IFS = "username"; then
+            echo "$line"
+        elif IFS = "user id"; then
+            echo "$line"
+        elif IFS = "Home directory"; then
+            echo "$line"
+        fi
+else
+    echo "File $filepath does not exist"
+fi
