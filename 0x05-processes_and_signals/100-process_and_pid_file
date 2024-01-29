@@ -1,30 +1,18 @@
 #!/usr/bin/env bash
-
 # Create PID file with script's PID
-echo $$ > /var/run/myscript.pid
+file="/var/run/myscript.pid"
 
-# Function that handles signals
-trap_handler()
-{
-    case "$1" in
-        SIGTERM)
-            echo "I hate the kill command!"
-            rm -f /var/run/myscript.pid
-            exit 0
-            ;;
-        SIGINT)
-            echo "Y U no love me?!"
-            ;;
-        SIGQUIT)
-            echo "Goodbye, cruel world!"
-            rm -f /var/run/myscript.pid
-            exit 0
-            ;;
-    esac
-}
+if [ ! -e "$file" ]; then
+  touch "$file"
+fi
 
-# Set up signal traps
-trap trap_handler SIGTERM SIGINT SIGQUIT
+sleep 2 & echo "$!" > "$file"
+
+# prints "I hate the kill" , then deletes the file and exits  when upon receiving a SIGTERM or SIGQUIT signal
+trap 'echo "I hate the kill command"; rm "$file"; exit' SIGTERM SIGQUIT
+
+# prints Y U no love me?! upon receiving a SIGINT signal
+trap "echo Y U no love me?!" SIGINT
 
 # Main loop
 while true
