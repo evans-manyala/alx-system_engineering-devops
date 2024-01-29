@@ -35,12 +35,15 @@ int main(void)
 		else if (pid == 0)
 		{
 			/* Child process */
+			printf("Zombie process created, PID: %d\n", pid);
 			exit(0); /* Child exits immediately, creating a zombie */
 		}
 		else
 		{
 			/* Parent process */
-			printf("Zombie process created, PID: %d\n", pid);
+			sleep(1);  /* Sleep for a short time to allow child to become a zombie */
 		}
 	}
+	infinite_while();
+	return (0);
 }
