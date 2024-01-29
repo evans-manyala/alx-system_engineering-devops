@@ -3,7 +3,7 @@
 # Create PID file with script's PID
 echo $$ > /var/run/myscript.pid
 
-# Function to handle signals
+# Function that handles signals
 trap_handler()
 {
     case "$1" in
