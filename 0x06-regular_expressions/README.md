@@ -4,32 +4,32 @@ In computer programming, a regular expression (regex) is a special sequence of c
 
 Here are some key things to understand about regexes:
 
-    # Pattern matching
+    Pattern matching
 
 You build a regex pattern using literal characters and special characters with designated meanings (e.g., ., \*, +). These patterns match specific text sequences like letters, numbers, symbols, or combinations.
 
-    # Powerful capabilities
+    Powerful capabilities
 
 Regexes can match complex patterns beyond simple searches. They can find repeated characters, groups of characters, specific formats (e.g., dates, emails), and even extract parts of the matched text using capturing groups.
 
-    # Wide range of applications
+    Wide range of applications
 
 Regexes are used in various programming languages and tools for tasks like:
 Text search and replace: Find and replace specific words, phrases, or patterns in text files, code, databases, etc.
 
-    # Data extraction
+    Data extraction
 
 Extract relevant information from unstructured text, like names, prices, dates, from documents or web pages.
 
-    # Input validation
+    Input validation
 
 Check if user input meets specific format requirements before being processed.
 
-    # Text manipulation
+    Text manipulation
 
 Advanced text parsing, splitting, or joining based on regex patterns.
 
-# Resources
+    Resources
 
 Read or watch:
 
