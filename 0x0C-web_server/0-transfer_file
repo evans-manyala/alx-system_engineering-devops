@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Script to transfer a file from client to server using scp
+
+if [ $# -lt 4 ]; then
+  echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+  exit 1
+fi
+
+# Capture arguments
+file_path="$1"
+server_ip="$2"
+username="$3"
+key_path="$4"
+
+# Disable strict host key checking
+export SSH_OPTS="-o StrictHostKeyChecking=no"
+
+# Transfer the file using scp with SSH key
+scp "$SSH_OPTS" -i "$key_path" "$file_path" "$username"@"$server_ip":~/
