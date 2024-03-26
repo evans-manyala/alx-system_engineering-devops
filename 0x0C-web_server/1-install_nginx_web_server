@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Install nginx on my webserver
+
+sudo apt-get update -y
+sudo apt-get install -y nginx
+
+# Create HTML file with "Hello World!" content
+cat <<EOF > /var/www/html/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hello World</title>
+</head>
+<body>
+<h1>Hello World!</h1>
+</body>
+</html>
+EOF
+
+# Configure Nginx to serve the HTML file
+cat <<EOF > /etc/nginx/sites-available/default
+server {
+	listen 80;
+	listen [::]:80;
+	
+	root /var/www/html;
+	index index.html index.htm index.nginx-debian.html;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}
+EOF
+
+# Restart Nginx
+sudo service nginx restart
