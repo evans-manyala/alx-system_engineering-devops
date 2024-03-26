@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 # Script to transfer a file from client to server using scp
 
 if [ $# -lt 4 ]; then
