@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Install nginx on my webserver
+#Script to install Nginx on Webserver when executed
 
-sudo apt-get update -y
-sudo apt-get install -y nginx
+sudo apt update -y
+sudo apt install -y nginx
 
 # Create HTML file with "Hello World!" content
 cat <<EOF > /var/www/html/index.html
@@ -19,7 +19,7 @@ cat <<EOF > /var/www/html/index.html
 EOF
 
 # Configure Nginx to serve the HTML file
-cat <<EOF > /etc/nginx/sites-available/default
+cat <<'EOF' > /etc/nginx/sites-available/default
 server {
 	listen 80;
 	listen [::]:80;
