@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 #Script to install Nginx on Webserver when executed
 
-sudo apt update -y
-sudo apt install -y nginx
+sudo apt-get update -y
+sudo apt-get install -y nginx
+sudo ufw allow 'Nginx HTTP'
 
 # Create HTML file with "Hello World!" content
 cat <<EOF > /var/www/html/index.html
