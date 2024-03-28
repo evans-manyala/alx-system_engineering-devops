@@ -7,41 +7,9 @@ sudo apt remove -y nginx nginx-common nginx-full
 # 2. Remove default HTML files (if any)
 sudo rm -rf /var/www/html/*
 
-# 3. Update package lists
-sudo apt update -y
-
-# 4. Install Nginx fresh
-sudo apt install -y nginx
-
-# 5. Create a new "HelloWorld.html" file
-cat <<EOF > /var/www/html/HelloWorld.html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Hello World (New)</title>
-</head>
-<body>
-<h1>Hello World (New)!</h1>
-</body>
-</html>
-EOF
-
-# 6. Configure Nginx to serve the new HTML file
-cat <<'EOF' > /etc/nginx/sites-available/default
-server {
-        listen 80;
-        listen [::]:80;
-        
-        root /var/www/html;
-        index HelloWorld.html index.htm index.nginx-debian.html;
-
-        location / {
-                try_files $uri $uri/ =404;
-        }
-}
-EOF
-
-# 7. Enable the new configuration and restart Nginx
-sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+#3. Install Nginx and Create HelloWorld HTML file
+sudo apt-get update -y && sudo apt-get upgrade -y
+sudo apt-get install -y nginx
+echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html
+sudo ufw allow 'Nginx HTTP'
 sudo service nginx restart
