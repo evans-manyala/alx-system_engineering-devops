@@ -1,38 +1,22 @@
 #!/usr/bin/env bash
 #Script to install Nginx on Webserver when executed
 
-sudo apt-get update -y
-sudo apt-get install -y nginx
-sudo ufw allow 'Nginx HTTP'
+if [[ $EUID -ne 0 ]]; then
+  echo "ERROR: You need to be root to run this script" 1>&2
+  exit 1
+fi
 
-# Create HTML file with "Hello World!" content
-cat <<EOF > /var/www/html/index.html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Hello World</title>
-</head>
-<body>
-<h1>Hello World!</h1>
-</body>
-</html>
-EOF
+# Update the package list and install Nginx
+apt-get update -y
+apt-get install -y nginx
 
-# Configure Nginx to serve the HTML file
-cat <<'EOF' > /etc/nginx/sites-available/default
-server {
-	listen 80;
-	listen [::]:80;
-	
-	root /var/www/html;
-	index index.html index.htm index.nginx-debian.html;
+# Create the default "Hello world" page
+echo "Hello World!" > /var/www/html/index.html
 
-	location / {
-		try_files $uri $uri/ =404;
-	}
-}
-EOF
+# Start the Nginx service
+service nginx start
 
-# Restart Nginx
-sudo service nginx restart
+if [[ ! $? ]]; then
+  echo "ERROR: Failed to start Nginx" 1>&2
+  exit 1
+fi
