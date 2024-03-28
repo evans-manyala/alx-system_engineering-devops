@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 #Script to install Nginx on Webserver when executed
 
-#!/usr/bin/env bash
-
 # 1. Remove existing Nginx installation (if any)
 sudo apt remove -y nginx nginx-common nginx-full
 
