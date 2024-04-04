@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
 #Script to install Nginx on Webserver when executed
-sudo apt-get -y update
-sudo apt-get -y install nginx
+sudo apt-get update -y -qq && sudo apt-get install nginx -y
+sudo service nginx start
+
 sudo ufw allow 'Nginx HTTP'
 
 sudo chown -R "$USER":"$USER" /var/www/html
-sudo chown -R "$USER":"$USER" /etc/nginx/sites-available/default
+sudo chown -R 755 /var/www
 
-echo 'Hello World' > /var/www/html/index.html
-echo "server {
-        listen  80 default_server;
-        listen  [::]:80 default_Server;
-        root    /var/www/html;
-        index   index.html index.htm;        
-}" > /etc/nginx/sites-available/default
-sudo service nginx nginx restart
+echo 'Hello World!' > /var/www/html/index.html
+
+sudo service nginx restart
