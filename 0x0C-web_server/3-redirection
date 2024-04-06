@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Script to install Nginx on Webserver when executed
+# This script also configures the default web page to be "Hello World"
+# Also a redirect url has been added to /redirect_me, which redirect to my
+sudo apt-get update -y -qq && sudo apt-get install nginx -y
+
+echo 'Hello World!' | /var/www/html/index.html > /dev/null
+
+sudo sed -E '
+  # Add the server block after the last server { block
+  /server {$/ {
+    a\
+      server {
+        listen 80;
+        listen [::]:80;
+        server_name _;
+
+        location /redirect_me {
+          return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+        }
+
+        root /var/www/html;
+        index index.html index.htm index.nginx-debian.html;
+      }
+  }
+' /etc/nginx/sites-available/default
+sudo service nginx restart
