@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Apache server Installed and running on Docker
+
+sudo service apache2 start
