@@ -4,16 +4,25 @@
 # that contains the string Ceci n'est pas une page.
 sudo apt-get update -y -qq && sudo apt-get install nginx -y
 
+# Allowing nginx on firewall
+sudo ufw allow 'Nginx HTTP'
+
+# Grant permissions for the user to edit the files
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
+
+# Backing up default index files
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
 
-# Setting up the custom 404 page configuration
-NEW_404_CONFIG="\\\n\terror_page 404 /errors/404.html;\n"
+# Create an index.html file
+echo -e "Hello World!" > /var/www/html/index.html
 
-# Adding the custom 404 page configuration to the default Nginx site configuration
-sudo sed -i "/^}/i $NEW_404_CONFIG" /etc/nginx/sites-available/default
+# Setting up /redirect_me to a youtube video
+sudo sed -i '/server_name _;/a \\n\tlocation /redirect_me {\n\t\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;\n\t}\n' /etc/nginx/sites-available/default
 
-# Creating the custom 404 page content
-sudo mkdir -p /var/www/html/errors
-echo "Ceci n'est pas une page" | sudo tee /var/www/html/errors/404.html > /dev/null
+# Setting up a 404 page
+echo "Ceci n'est pas une page" > /var/www/html/404_error.html
+sudo sed -i '/server_name _;/a \\n\terror_page 404 /404_error.html;\n' /etc/nginx/sites-available/default
 
-sudo service restart nginx
+# Restarting nginx
+sudo service nginx restart
