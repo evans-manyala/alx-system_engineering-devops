@@ -7,7 +7,7 @@ sudo apt-get update -y -qq && sudo apt-get install nginx -y
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
 
 # Setting up the custom 404 page configuration
-NEW_404_CONFIG="\\\n\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\tinternal;\n\t\treturn 404 'Ceci n\\'est pas une page';\n\t}\n"
+NEW_404_CONFIG="\\\n\terror_page 404 /errors/404.html;\n"
 
 # Adding the custom 404 page configuration to the default Nginx site configuration
 sudo sed -i "/^}/i $NEW_404_CONFIG" /etc/nginx/sites-available/default
