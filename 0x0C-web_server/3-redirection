@@ -4,18 +4,11 @@
 # Also a redirect url has been added to /redirect_me, which redirect to my
 sudo apt-get update -y -qq && sudo apt-get install nginx -y
 
-sudo tee/var/www/html/index.html >/dev/null<<EOF
-server {
-        listen 80;
-        listen [::]:80;
-        server_name _;
+echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
 
-        location /redirect_me {
-                return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-        }
+NEW_REDIRECTION="\\\n\tlocation = /redirect_me {\n\t\t return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n"
 
-        root /var/www/html;
-        index index.html index.htm index.nginx-debian.html;
-}
-EOF
-sudo service nginx restart
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
+
+sudo sed -i "53i $NEW_REDIRECTION" /etc/nginx/sites-available/default
+service nginx restart
