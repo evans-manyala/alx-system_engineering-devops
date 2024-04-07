@@ -7,9 +7,7 @@ sudo apt-get update -y -qq && sudo apt-get install nginx -y
 # Allowing nginx on firewall
 sudo ufw allow 'Nginx HTTP'
 
-# Grant permissions for the user to edit the files
-sudo chown -R "$USER":"$USER" /var/www/html
-sudo chmod -R 755 /var/www
+sudo service nginx start
 
 # Backing up default index files
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
@@ -26,3 +24,4 @@ sudo sed -i '/server_name _;/a \\n\terror_page 404 /404_error.html;\n' /etc/ngin
 
 # Restarting nginx
 sudo service nginx restart
+sudo service nginx reload
