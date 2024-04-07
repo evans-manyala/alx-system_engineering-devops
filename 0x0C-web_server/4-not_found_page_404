@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Script to install Nginx on Webserver when executed
+# Configure your Nginx server to have a custom 404 page
+# that contains the string Ceci n'est pas une page.
+sudo apt-get update -y -qq && sudo apt-get install nginx -y
+
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
+
+# Setting up the custom 404 page configuration
+NEW_404_CONFIG="\\\n\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\tinternal;\n\t\treturn 404 'Ceci n\\'est pas une page';\n\t}\n"
+
+# Adding the custom 404 page configuration to the default Nginx site configuration
+sudo sed -i "/^}/i $NEW_404_CONFIG" /etc/nginx/sites-available/default
+
+# Creating the custom 404 page content
+sudo mkdir -p /var/www/html/errors
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/errors/404.html > /dev/null
+
+sudo service restart nginx
