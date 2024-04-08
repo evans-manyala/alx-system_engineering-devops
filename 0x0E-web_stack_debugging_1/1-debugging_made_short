@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Bash script based on task 0 summarized
-sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-sudo service nginx status | grep -q "nginx is not running" && sudo service nginx start
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo systemctl restart nginx
