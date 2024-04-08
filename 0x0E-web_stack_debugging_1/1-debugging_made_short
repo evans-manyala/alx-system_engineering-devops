@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 # Bash script based on task 0 summarized
-sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-sudo systemctl restart nginx
+ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+systemctl restart nginx
+kill "$(pgrep 'nginx' | head -1)"
