@@ -7,7 +7,7 @@ sudo sysctl -p
 sudo ufw allow 8080/tcp
 
 # Configure UFW NAT rule for redirection
-sudo ufw allow proto tcp dport 8080 to destination any port 80 REDIRECT
+sudo ufw allow proto tcp to any port 8080 REDIRECT
 
 # Enable UFW (if not already enabled)
 sudo ufw enable
