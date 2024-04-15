@@ -1,15 +1,14 @@
 #!/usr/bin/bash
-# Script installs ufw firewall
-# It blocks all incoming traffic, except the following TCP ports:
+# Script configures ufw firewall by blocking all
+# incoming traffic, except the following TCP ports:
 # 22 (SSH)
 # 443 (HTTPS SSL)
 # 80 (HTTP)
-sudo apt update -y && sudo apt install ufw -y
-sudo ufw default deny incoming
+# Allow  SSH
+sudo ufw allow 22/tcp
 
-# Allow specific ports (SSH, HTTPS, HTTP)
-ports=(22 443/tcp 80/tcp)
-for port in "${ports[@]}"; do
-  sudo ufw allow "$port"
-done
-sudo ufw enable
+# Allow HTTPS SSL
+sudo ufw allow 443/tcp
+
+# Allow HTTP
+sudo ufw allow 80/tcp
