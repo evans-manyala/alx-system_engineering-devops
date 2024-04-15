@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Bash script to configure web-02 to be identical to web-01 server.
 SERVER_HOSTNAME=$(hostname)
 
