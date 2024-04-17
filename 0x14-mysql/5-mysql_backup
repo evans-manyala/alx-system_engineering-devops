@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 #Script creates a backup of MySQL DB
 
 # Get today's date in the desired format
