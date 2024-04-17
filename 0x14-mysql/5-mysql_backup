@@ -1,28 +1,10 @@
 #!/usr/bin/bash
 #Script creates a backup of MySQL DB
-# Check if the MySQL root password argument is provided
-if [ $# -ne 1 ]; then
-    echo "Usage: $0 <mysql_root_password>"
-    exit 1
-fi
 
-# MySQL root password
-MYSQL_ROOT_PASSWORD="$1"
+# Get today's date in the desired format
+CURRENT_DATE=$(CURRENT_DATE +%d-%m-%Y)
 
-# Get the current date in the required format (day-month-year)
-CURRENT_DATE=$(date +"%d-%m-%Y")
-
-# MySQL dump command
-MYSQL_DUMP_CMD="mysqldump -u root -p${MYSQL_ROOT_PASSWORD} --all-databases | gzip > ${CURRENT_DATE}.tar.gz"
-
-# Execute the MySQL dump command and compress the output directly
-echo "Creating MySQL dump and compressing to tar.gz..."
-eval "${MYSQL_DUMP_CMD}"
-
-# Check if MySQL dump and compression were successful
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to create MySQL dump or compress."
-    exit 1
-fi
-
-echo "Backup completed successfully: ${CURRENT_DATE}.tar.gz"
+# Create the backup.sql file
+mysqldump -u root -p"$1" --all-databases > backup.sql
+# Create the compressed archive
+tar -czvf "$CURRENT_DATE.tar.gz" backup.sql
