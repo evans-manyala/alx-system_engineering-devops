@@ -2,7 +2,7 @@
 #Script creates a backup of MySQL DB
 
 # Get today's date in the desired format
-CURRENT_DATE=$(CURRENT_DATE +%d-%m-%Y)
+CURRENT_DATE=$(date +"%d-%m-%Y")
 
 # Create the backup.sql file
 mysqldump -u root -p"$1" --all-databases > backup.sql
