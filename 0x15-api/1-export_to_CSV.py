@@ -5,44 +5,18 @@ This module provides a function to export user tasks to a CSV file.
 """
 
 import csv
+import requests
 import sys
 
-method = __import__("0-gather_data_from_an_API")
-
-
-def export_to_csv(user_id: int, username: str, tasks: "list[dict]") -> None:
-    """
-    Export user tasks to a CSV file.
-    """
-    with open(f"{user_id}.csv", "w", newline="") as csv_file:
-        fieldnames = [
-            "USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"
-        ]
-        writer = csv.DictWriter(
-            csv_file, fieldnames=fieldnames, quoting=csv.QUOTE_ALL
-        )
-
-        for task in tasks:
-            writer.writerow(
-                {
-                    "USER_ID": f"{user_id}",
-                    "USERNAME": f"{username}",
-                    "TASK_COMPLETED_STATUS": f"{task.get('completed')}",
-                    "TASK_TITLE": f"{task.get('title')}",
-                }
-            )
-
-
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        sys.stderr.write(f"Usage: {sys.argv[0]} <user_id>\n")
-        sys.exit(1)
-
     user_id = sys.argv[1]
-    user = method.get_username(user_id)
-    if user is None:
-        sys.stderr.write("Invalid user id.\n")
-        sys.exit(1)
+    url = "https://jsonplaceholder.typicode.com/"
+    user = requests.get(url + "users/{}".format(user_id)).json()
+    username = user.get("username")
+    todos = requests.get(url + "todos", params={"userId": user_id}).json()
 
-    todos = method.get_todos(user_id)
-    export_to_csv(user_id=user_id, username=user, tasks=todos)
+    with open("{}.csv".format(user_id), "w", newline="") as csvfile:
+        writer = csv.writer(csvfile, quoting=csv.QUOTE_ALL)
+        [writer.writerow(
+            [user_id, username, t.get("completed"), t.get("title")]
+         ) for t in todos]
