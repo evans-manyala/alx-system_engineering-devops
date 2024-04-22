@@ -6,39 +6,61 @@ his/her TODO list progress.
 """
 
 import requests
-from sys import argv
+import sys
+
+URL = "https://jsonplaceholder.typicode.com/users/"
 
 
 def fetch_todo_progress(employee_id):
-    """Fetch the employee id"""
-    URL = f"https://jsonplaceholder.typicode.com/todos?userId={employee_id}"
-    response = requests.get(URL)
-    return response.json()
+    """Get the employee id"""
+    return requests.get(f"{URL}/{user_id}/todos").json()
 
 
-def fetch_user(employee_id):
-    """Fetch  the user associated with the resource"""
-    URL = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
-    response = requests.get(URL)
-    user_data = response.json()
-    name = user_data.get('name')
-    return name
+def get_completed_tasks(tasks: "list[dict]") -> "list[dict]":
+    """Returns all the TODO tasks that the user has completed.
+    """
+    return [task for task in tasks if task.get("completed") is True]
 
 
-def display_tasks(employee_id):
-    """Show the completed tasks for a user"""
-    tasks_data = fetch_todo_progress(employee_id)
-    num_of_tasks = len(tasks_data)
-    completed_tasks = sum(task['completed'] for task in tasks_data)
-    return completed_tasks, num_of_tasks
+def print_completed_tasks(
+        user: str, num_of_tasks: int, completed_tasks: "list[dict]"
+) -> None:
+    """
+    Shows the completed tasks for a given user.
+    """
+    print(
+        f"Employee {user} is done with "
+        f"tasks({len(completed_tasks)}/{num_of_tasks}):"
+    )
+
+    for task in completed_tasks:
+        print(f"\t {task.get('title')}")
 
 
-if __name__ == '__main__':
-    employee_id = argv[1]
-    complete_task, sum_tasks = display_tasks(employee_id)
-    user = fetch_user(employee_id)
+def get_name(user_id: int) -> "str | None":
+    """
+     Fetches name associated with the user ID from API.
+    """
+    return requests.get(f"{URL}/{user_id}").json().get("name", None)
 
-    print(f"Employee {user} is done with tasks({complete_task}/{sum_tasks}):")
-    for task in fetch_todo_progress(employee_id):
-        if task['completed']:
-            print(f"\t {task['title']}")
+
+def get_username(user_id):
+    """
+    Retrieves the name associated with the given user ID from an API.
+    """
+    return requests.get(f"{URL}/{user_id}").json().get("username", None)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        sys.stderr.write(f"Usage: {sys.argv[0]} <user_id>\n")
+        sys.exit(1)
+
+    user = get_name(sys.argv[1])
+    if user is None:
+        sys.stderr.write("Invalid user id.\n")
+        sys.exit(1)
+
+    todos = get_todos(sys.argv[1])
+    completed_tasks = get_completed_tasks(todos)
+    print_completed_tasks(user, len(todos), completed_tasks)
