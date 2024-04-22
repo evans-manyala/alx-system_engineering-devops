@@ -9,9 +9,9 @@ import requests
 import sys
 
 def fetch_employee_todo_progress(employee_id):
-    base_url = "https://jsonplaceholder.typicode.com/users"
-    employee_url = f"{base_url}/{employee_id}"
-    todo_url = f"{base_url}/{employee_id}/todos"
+    URL = "https://jsonplaceholder.typicode.com/users"
+    employee_url = f"{URL}/{employee_id}"
+    todo_url = f"{URL}/{employee_id}/todos"
     
     try:
         employee_response = requests.get(employee_url)
