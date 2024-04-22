@@ -5,9 +5,9 @@ for a given employee ID, returns information about
 his/her TODO list progress.
 """
 
+import re
 import requests
 import sys
-import re
 
 URL = "https://jsonplaceholder.typicode.com"
 
