@@ -28,3 +28,4 @@ if __name__ == "__main__":
 
     # print the titles of completed tasks with indentation
     [print("\t {}".format(c)) for c in completed]
+    
