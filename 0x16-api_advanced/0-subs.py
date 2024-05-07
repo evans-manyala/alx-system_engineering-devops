@@ -6,20 +6,16 @@ import requests
 
 
 def number_of_subscribers(subreddit):
-    """
-    Python funtion that returns the total number of subscribers on a given subreddit.
-    """
-
-    if subreddit is None or not isinstance(subreddit, str):
-        return 0
-
-    user_agent = {'User-agent': 'Google Chrome / 13.0'}
-    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
-    response = get(url, headers=user_agent)
-    results = response.json()
+    """Return the total number of subscribers on a given subreddit."""
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    headers = {"User-Agent": "Chrome/13.0"}
 
     try:
-        return results.get('data').get('subscribers')
-
-    except Exception:
+        response = requests.get(url, headers=headers, allow_redirects=False)
+        response.raise_for_status()
+        data = response.json().get("data", {})
+        subscribers = data.get("subscribers", 0)
+        return subscribers
+    except requests.RequestException as e:
+        print(f"Error occurred: {e}")
         return 0
