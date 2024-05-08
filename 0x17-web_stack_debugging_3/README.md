@@ -5,7 +5,9 @@
 For this project, we expect you to look at these concepts:
 
 - [Web Server](https://intranet.alxswe.com/concepts/17)
+
 - [Web stack debugging](https://intranet.alxswe.com/concepts/68)
+
   ![alt text](image.png)
 
 When debugging, sometimes logs are not enough. Either because the software is breaking in a way that was not expected and the error is not being logged, or because logs are not providing enough information. In this case, you will need to go down the stack, the good news is that this is something Holberton students can do :)
