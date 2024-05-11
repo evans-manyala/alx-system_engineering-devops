@@ -6,9 +6,8 @@
 # Configure Nginx as user
 # Update nginx.conf to use nginx user
 sed -i "s/#user www-data/user nginx/" /etc/nginx/nginx.conf
-
 # Change the default port from 80 to 8080
 sed -i "s/\<80\>/8080/g" /etc/nginx/sites-available/default
-
-# Restart nginx service as the nginx user
-sudo -u nginx service nginx restart
+chmod 644 /etc/nginx/nginx.conf
+pkill apache2
+sudo -u nginx service nginx start
