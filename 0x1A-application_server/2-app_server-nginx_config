@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Scripting for getting a page working
+# Nginx Config
 
 server {
     listen 80;
