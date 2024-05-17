@@ -24,14 +24,13 @@ server {
 	}
 
     location / {
-        proxy_pass http://127.0.0.1:5003;
+        proxy_pass http://127.0.0.1:5003/2-hbnb;
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
     }
 
     location /static/ {
-        alias /path/to/web_dynamic/static/;
-        expires 30d;
+	alias /web_dynamic/static/;
     }
 
 	location /api/ {
@@ -41,3 +40,4 @@ server {
 	}
 }
 EOF
+n
